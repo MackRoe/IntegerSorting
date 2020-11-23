@@ -7,9 +7,13 @@ def counting_sort(numbers):
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
     # TODO: Find range of given numbers (minimum and maximum integer values)
-    min_num = min(numbers)
-    max_num = max(numbers)
-    num_range = (max_num - min_num) + 1
+    print('Input List: ', numbers)
+    if numbers != []:
+        min_num = min(numbers)
+        max_num = max(numbers)
+        num_range = (max_num - min_num) + 1
+    else:
+        num_range = 0
     print('Number Range: ', num_range)
 
     # Create list of counts with a slot for each number in input range
@@ -29,7 +33,11 @@ def counting_sort(numbers):
             counting_list[i] = counting_list[i] -1
     print('Output List: ', output_list)
     return output_list
-    # FIXME: Improve this to mutate input instead of creating new output list
+
+def mutating_counting_sort(numbers):
+    # Stretch challenge:
+    # Improve counting_sort to mutate input instead of creating new output list
+    pass
 
 
 def bucket_sort(numbers, num_buckets=10):
@@ -37,13 +45,41 @@ def bucket_sort(numbers, num_buckets=10):
     then sorting each bucket and concatenating all buckets in sorted order.
     TODO: Running time: ??? Why and under what conditions?
     TODO: Memory usage: ??? Why and under what conditions?"""
-    # TODO: Find range of given numbers (minimum and maximum values)
-    # TODO: Create list of buckets to store numbers in subranges of input range
+    # Find range of given numbers (minimum and maximum values)
+    print('')
+    print("***** Begin Bucket Sort *****")
+    print("Input list: ", numbers)
+    if numbers != []:
+        min_val = min(numbers)
+        max_val = max(numbers)
+    print('min value is: ', min_val, ' and max value is: ', max_val)
+    # Create list of buckets to store numbers in subranges of input range
+    print('Number of buckets to be created is: ', num_buckets)
+    buckets = []
+    for i in range(num_buckets):
+      print('i: ', i)
+      buckets.append([])
+      print('Bucket ', i, ' Created')
     # TODO: Loop over given numbers and place each item in appropriate bucket
-    # TODO: Sort each bucket using any sorting algorithm (recursive or another)
-    # TODO: Loop over buckets and append each bucket's numbers into output list
+    for i in range(len(numbers)):
+        x = i + 1
+        value = numbers[i]
+        if value <= len(numbers)//(10 + x):
+            buckets[i].append(numbers[i])
+            print('Bucket ', i, ' has been assigned', value)
+
+    # Sort each bucket using counting_sort method & append the sorted buckets
+    # to the output list variable: sorted_numbers
+    sorted_numbers = []
+    for i in range(len(buckets)):
+        sorted_numbers.append(counting_sort(buckets[i]))
+
+    # Stretch challenge:
     # FIXME: Improve this to mutate input instead of creating new output list
-    pass
+    return sorted_numbers
 
 these_nums = [2, 1 , 2, 3, 0, 4, 3, 6]
 counting_sort(these_nums)
+
+nums = [7, 3, 9, 2, 19, 23, 91, 8, 12]
+bucket_sort(nums)
